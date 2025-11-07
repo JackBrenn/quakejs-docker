@@ -31,7 +31,7 @@ WORKDIR /
 
 # Create a non-root user
 RUN useradd -m -u 1000 sa_quakejs && \
-    chown -R sa_quakejs:sa_quakejs /quakejs-master /var/www/html
+    chown -R sa_quakejs:sa_quakejs /quakejs /var/www/html
 
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod 755 /entrypoint.sh && \
