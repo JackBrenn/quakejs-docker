@@ -18,6 +18,7 @@ RUN bash /tmp/setup_22.x
 
 # Copy files with proper ownership from the start
 COPY --chown=sa_quakejs:sa_quakejs quakejs-master/ /quakejs/
+RUN rm /quakejs/node_modules/connect/node_modules/mime/LICENSE
 WORKDIR /quakejs
 
 RUN npm install
