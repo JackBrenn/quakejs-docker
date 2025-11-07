@@ -45,7 +45,7 @@ podman run -d \
   -e HTTP_PORT=8080 \
   -p 8080:80 \
   -p 27960:27960 \
-  jackbrenn/quakejs:latest
+  awakenedpower/quakejs:latest
 ```
 
 ### Using Docker Run
@@ -56,7 +56,7 @@ docker run -d \
   -e HTTP_PORT=8080 \
   -p 8080:80 \
   -p 27960:27960 \
-  jackbrenn/quakejs:latest
+  awakenedpower/quakejs:latest
 ```
 
 Then open your browser and navigate to `http://localhost:8080` to start playing!
@@ -70,7 +70,7 @@ version: '3.8'
 services:
   quakejs:
     container_name: quakejs
-    image: jackbrenn/quakejs:latest
+    image: awakenedpower/quakejs:latest
     environment:
       - HTTP_PORT=8080
     ports:
@@ -128,7 +128,7 @@ cd quakejs-docker
 
 3. **Build the image:**
 ```bash
-docker build --add-host=content.quakejs.com:127.0.0.1 -t jackbrenn/quakejs:latest .
+docker build --add-host=content.quakejs.com:127.0.0.1 -t awakenedpower/quakejs:latest .
 ```
 
 ## ⚙️ Configuration
