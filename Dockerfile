@@ -49,7 +49,7 @@ RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf && \
     chown -R sa_quakejs:sa_quakejs /var/log/apache2 /var/run/apache2 /var/lock/apache2 && \
     echo "PidFile /var/run/apache2/apache2.pid" >> /etc/apache2/apache2.conf
 
-RUN chown -R sa_quakejs:sa_quakejs /quakejs/
+RUN chown -R 1100:1100 /quakejs/
 
 # Switch to non-root user
 USER sa_quakejs
