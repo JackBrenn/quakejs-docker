@@ -98,16 +98,12 @@ git clone https://github.com/JackBrenn/quakejs-rootless.git
 cd quakejs-rootless
 ```
 
-2. **Ensure line endings are correct** (convert CRLF to LF if needed):
-   - `Dockerfile`
-   - `entrypoint.sh`
-
-3. **Build the image:**
+2. **Build the image:**
 ```bash
-podman build --add-host=content.quakejs.com:127.0.0.1 -t quakejs-rootless:latest .
+podman build -t docker.io/awakenedpower/quakejs-rootless:latest .
 ```
 
-4. **Run the container:**
+3. **Run the container:**
 ```bash
 podman run -d \
   --name quakejs \
@@ -124,14 +120,9 @@ podman run -d \
 git clone https://github.com/JackBrenn/quakejs-rootless.git
 cd quakejs-rootless
 ```
-
-2. **Ensure line endings are correct** (convert CRLF to LF if needed):
-   - `Dockerfile`
-   - `entrypoint.sh`
-
-3. **Build the image:**
+2. **Build the image:**
 ```bash
-docker build --add-host=content.quakejs.com:127.0.0.1 -t awakenedpower/quakejs-rootless:latest .
+docker build -t awakenedpower/quakejs-rootless:latest .
 ```
 
 ## ⚙️ Configuration
