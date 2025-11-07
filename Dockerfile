@@ -12,7 +12,7 @@ RUN apt-get update && \
         nodejs \
         npm \
         jq \
-        python3 \
+        procps \
         ca-certificates && \
     curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get clean && \
@@ -48,13 +48,22 @@ RUN cp /quakejs/html/* /home/quakejs/www/ && \
 
 COPY --chown=quakejs:quakejs ./include/assets/ /home/quakejs/www/assets
 
-# Copy and set permissions for entrypoint
+# Install nginx
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends nginx-light && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY --chown=quakejs:quakejs nginx.conf /etc/nginx/nginx.conf
+
+# Create nginx temp directories
+RUN mkdir -p /tmp/client_temp /tmp/proxy_temp_path /tmp/fastcgi_temp /tmp/uwsgi_temp /tmp/scgi_temp && \
+    chown -R quakejs:quakejs /tmp/client_temp /tmp/proxy_temp_path /tmp/fastcgi_temp /tmp/uwsgi_temp /tmp/scgi_temp
+
 COPY --chown=quakejs:quakejs --chmod=755 entrypoint.sh /entrypoint.sh
 
-# Expose port 8080 for web server and 27960 for game server
 EXPOSE 8080 27960
 
-# Run as non-root user
 USER quakejs
 
 ENTRYPOINT ["/entrypoint.sh"]
