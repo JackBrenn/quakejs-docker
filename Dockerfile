@@ -16,6 +16,7 @@ RUN bash /tmp/setup_22.x && \
     rm /tmp/setup_22.x
 
 WORKDIR /quakejs-master
+COPY quakejs-master/ .
 RUN npm install
 RUN ls
 
