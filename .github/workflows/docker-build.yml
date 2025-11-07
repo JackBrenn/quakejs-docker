@@ -13,9 +13,6 @@ env:
   REGISTRY_DOCKERHUB: docker.io
   IMAGE_NAME_GHCR: ghcr.io/jackbrenn/quakejs-docker
   IMAGE_NAME_DOCKERHUB: jackbrenn/quakejs-docker
-  VERSION_MAJOR: 0
-  VERSION_MINOR: 0
-  VERSION_BASE: 1
 
 jobs:
   build-and-push:
@@ -34,7 +31,11 @@ jobs:
           if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
             VERSION=${GITHUB_REF#refs/tags/v}
           else
-            VERSION="${{ env.VERSION_MAJOR }}.${{ env.VERSION_MINOR }}.${{ env.VERSION_BASE }}"
+            # Auto-increment patch number using commit count for non-tag builds
+            VERSION_MAJOR=0
+            VERSION_MINOR=0
+            VERSION_BASE=$(git rev-list --count HEAD)
+            VERSION="${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_BASE}"
           fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Generated version: $VERSION"
