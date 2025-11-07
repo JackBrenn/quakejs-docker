@@ -10,10 +10,10 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Create the non-root user early so we can use it in COPY commands
-RUN useradd -m -u 1000 sa_quakejs
+RUN useradd -m -u 1100 sa_quakejs
 
 # Copy and run the local Node.js setup script
-COPY nodejs-lts/setup_22.x /tmp/setup_22.x
+COPY --chown=sa_quakejs:sa_quakejs nodejs-lts/setup_22.x /tmp/setup_22.x
 RUN bash /tmp/setup_22.x
 
 # Copy files with proper ownership from the start
