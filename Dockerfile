@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM debian:trixie-slim
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Oslo
