@@ -18,7 +18,6 @@ RUN bash /tmp/setup_22.x
 
 # Copy files with proper ownership from the start
 COPY --chown=sa_quakejs:sa_quakejs quakejs-master/ /quakejs/
-RUN rm /quakejs/node_modules/connect/node_modules/mime/LICENSE
 WORKDIR /quakejs
 
 RUN npm install
@@ -50,7 +49,7 @@ RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf && \
     mkdir -p /var/run/apache2 /var/lock/apache2 && \
     chown -R sa_quakejs:sa_quakejs /var/log/apache2 /var/run/apache2 /var/lock/apache2 && \
     echo "PidFile /var/run/apache2/apache2.pid" >> /etc/apache2/apache2.conf
-
+RUN rm /quakejs/node_modules/connect/node_modules/mime/LICENSE
 # Switch to non-root user
 USER sa_quakejs
 
