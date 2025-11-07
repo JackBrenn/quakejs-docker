@@ -1,6 +1,6 @@
 <div align="center">
 
-# QuakeJS Docker
+# QuakeJS Container Rootless
 
 ### Play Quake III Arena in your browser with Docker
 
