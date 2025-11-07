@@ -8,9 +8,6 @@ RUN apt-get dist-upgrade -y
 
 RUN apt-get install sudo curl git nodejs npm jq apache2 wget apt-utils -y
 
-COPY ./nodejs-ltc/setup_22.x /tmp/setup_22.x
-RUN sudo -E bash /tmp/setup_22.x
-
 COPY ./quakejs-master/ /quakejs
 WORKDIR /quakejs
 RUN npm install
