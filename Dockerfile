@@ -10,8 +10,8 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy and run the local Node.js setup script
-COPY nodejs-lts/setup_22.x /quakejs/setup_22.x
-RUN bash /quakejs/setup_22.x
+COPY nodejs-lts/setup_22.x /tmp/setup_22.x
+RUN bash /tmp/setup_22.x
 
 WORKDIR /quakejs
 COPY quakejs/ .
