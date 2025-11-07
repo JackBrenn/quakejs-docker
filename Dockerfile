@@ -10,7 +10,7 @@ RUN apt-get install sudo curl git nodejs npm jq apache2 wget apt-utils -y
 
 RUN curl -sL https://deb.nodesource.com/setup_22.x | sudo -E bash -
 
-RUN git clone https://github.com/nerosketch/quakejs.git
+RUN git clone https://github.com/JackBrenn/quakejs.git
 WORKDIR /quakejs
 RUN npm install
 RUN ls
