@@ -1,33 +1,60 @@
-FROM ubuntu:24.04
+FROM debian:trixie-slim
 
 ARG DEBIAN_FRONTEND=noninteractive
-ENV TZ=US/Eastern
+ENV TZ=UTC
 
-RUN apt-get update
-RUN apt-get upgrade -y
+# Combine RUN commands to reduce layers and clean up in same layer
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
+        curl \
+        git \
+        nodejs \
+        npm \
+        jq \
+        python3 \
+        ca-certificates && \
+    curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN apt-get install sudo curl git nodejs npm jq apache2 wget apt-utils -y
+# Create non-root user
+RUN useradd -m -u 1000 quakejs
 
-RUN curl -sL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+# Create quakejs directory and web root
+RUN mkdir -p /quakejs /home/quakejs/www && \
+    chown -R quakejs:quakejs /quakejs /home/quakejs
 
-RUN git clone https://github.com/nerosketch/quakejs.git
+# Clone quakejs as root but set ownership
+RUN cd / && \
+    git clone https://github.com/nerosketch/quakejs.git && \
+    chown -R quakejs:quakejs /quakejs
+
+# Switch to non-root user for npm install
+USER quakejs
 WORKDIR /quakejs
-RUN npm install
-RUN ls
-COPY server.cfg /quakejs/base/baseq3/server.cfg
-COPY server.cfg /quakejs/base/cpma/server.cfg
-# The two following lines are not necessary because we copy assets from include.  Leaving them here for continuity.
-# WORKDIR /var/www/html
-# RUN bash /var/www/html/get_assets.sh
-COPY ./include/ioq3ded/ioq3ded.fixed.js /quakejs/build/ioq3ded.js
+RUN npm install --only=production
 
-RUN rm /var/www/html/index.html && cp /quakejs/html/* /var/www/html/
-COPY ./include/assets/ /var/www/html/assets
-RUN ls /var/www/html
+# Switch back to root for file copying
+USER root
 
-WORKDIR /
-ADD entrypoint.sh /entrypoint.sh
-# Was having issues with Linux and Windows compatibility with chmod -x, but this seems to work in both
-RUN chmod 777 ./entrypoint.sh
+COPY --chown=quakejs:quakejs server.cfg /quakejs/base/baseq3/server.cfg
+COPY --chown=quakejs:quakejs server.cfg /quakejs/base/cpma/server.cfg
+COPY --chown=quakejs:quakejs ./include/ioq3ded/ioq3ded.fixed.js /quakejs/build/ioq3ded.js
+
+# Copy web files to user directory
+RUN cp /quakejs/html/* /home/quakejs/www/ && \
+    chown -R quakejs:quakejs /home/quakejs/www
+
+COPY --chown=quakejs:quakejs ./include/assets/ /home/quakejs/www/assets
+
+# Copy and set permissions for entrypoint
+COPY --chown=quakejs:quakejs --chmod=755 entrypoint.sh /entrypoint.sh
+
+# Expose port 8080 for web server and 27960 for game server
+EXPOSE 8080 27960
+
+# Run as non-root user
+USER quakejs
 
 ENTRYPOINT ["/entrypoint.sh"]
