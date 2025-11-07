@@ -8,6 +8,7 @@
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Debian](https://img.shields.io/badge/Debian-A81D33?style=for-the-badge&logo=debian&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js_22.x-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
 A fully self-contained, Dockerized QuakeJS server running on Debian 13 and Node.js 22.x LTS
@@ -23,6 +24,7 @@ This project provides a completely local QuakeJS server that runs entirely in Do
 **Key improvements in this fork:**
 - ✨ Updated to **Debian 13 Slim** base image
 - 🚀 Upgraded to **Node.js 22.x LTS** for better performance and security
+- 🌐 **Production-ready Nginx web server** with security headers
 - 📦 Fully self-contained with all game assets bundled
 - 🔒 No external content servers required
 - 🛡️ **Runs as non-root user (quakejs)** for enhanced container security
@@ -34,7 +36,7 @@ This project provides a completely local QuakeJS server that runs entirely in Do
 1. **Legacy Quake III Arena game code** - The original game engine was not designed with modern security practices and contains known exploits
 2. **Deprecated NPM packages** - The QuakeJS implementation relies on old, unmaintained Node.js dependencies with known vulnerabilities
 
-**Recommendation:** This container now runs as a non-root user, significantly improving security through reduced privileges and better container isolation. However, **exposing this server directly to the internet is not recommended**.
+**Recommendation:** This container now runs as a non-root user with a production-ready Nginx web server, significantly improving security through reduced privileges, better container isolation, and proper web server hardening. However, **exposing this server directly to the internet is still not recommended without additional security measures**.
 
 For internet-facing deployments, use a VPN, reverse proxy with authentication, or limit access to trusted IP ranges.
 
@@ -137,7 +139,7 @@ The server configuration can be customized by modifying `server.cfg`. Refer to t
 
 ### Ports
 
-- **8080** (or your custom HTTP_PORT) - Web interface
+- **8080** (or your custom HTTP_PORT) - Web interface (Nginx)
 - **27960** - Game server (WebSocket)
 
 ## 🔐 Security Best Practices
@@ -147,12 +149,13 @@ While the legacy Quake III game code and deprecated NPM packages contain vulnera
 ### Recommended Security Measures
 
 1. **Rootless container** - This image runs as a non-root user (`quakejs`), providing strong isolation and making privilege escalation highly unlikely
-2. **Use Podman with a non-root user** - Rootless containers provide additional system-level isolation
-3. **Keep your system updated** - Regular OS and package updates patch known vulnerabilities
-4. **Enable and configure a firewall** - Use `ufw`, `firewalld`, or `iptables` to restrict access
-5. **Limit network exposure** - Use VPN, reverse proxy with auth, or IP allowlisting for internet-facing deployments
-6. **Monitor logs** - Watch for unusual connection patterns or exploitation attempts
-7. **Consider SELinux/AppArmor** - Additional mandatory access controls provide defense-in-depth
+2. **Production web server** - Uses Nginx with security headers (X-Frame-Options, X-Content-Type-Options, X-XSS-Protection)
+3. **Use Podman with a non-root user** - Rootless containers provide additional system-level isolation
+4. **Keep your system updated** - Regular OS and package updates patch known vulnerabilities
+5. **Enable and configure a firewall** - Use `ufw`, `firewalld`, or `iptables` to restrict access
+6. **Limit network exposure** - Use VPN, reverse proxy with auth, or IP allowlisting for internet-facing deployments
+7. **Monitor logs** - Watch for unusual connection patterns or exploitation attempts
+8. **Consider SELinux/AppArmor** - Additional mandatory access controls provide defense-in-depth
 
 ### Risk Assessment
 
@@ -160,7 +163,7 @@ While the legacy Quake III game code and deprecated NPM packages contain vulnera
 - **Container escape**: Very low risk - Non-root user inside container + modern container runtimes provide strong isolation
 - **Host compromise**: Very low risk - When using rootless containers with a properly maintained system
 
-The combination of non-root container user, rootless container runtime, system updates, and firewall rules creates multiple layers of defense that make successful exploitation significantly more difficult.
+The combination of non-root container user, production-ready web server, rootless container runtime, system updates, and firewall rules creates multiple layers of defense that make successful exploitation significantly more difficult.
 
 ## 📝 What's Different?
 
@@ -170,12 +173,14 @@ This fork builds upon the excellent work of [@treyyoder/quakejs-docker](https://
 |-----------|----------|-----------|
 | Base OS | Ubuntu 20.04 | **Debian 13 Slim** |
 | Node.js | 14.x | **22.x LTS** |
+| Web Server | Python http.server | **Nginx (production-ready)** |
 | Container User | root | **non-root (quakejs)** |
 | Maintenance | Updated 2020 | **Updated 2025** |
 
 These updates provide:
 - Extended security support from Debian 13 Slim
 - Improved Node.js performance and features
+- Production-ready web server with security headers
 - Better long-term compatibility
 - Modern package versions with security patches
 - Reduced attack surface through updated dependencies
@@ -203,6 +208,6 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 
 **Ready to frag?** Share the server URL with your friends and enjoy some classic Quake III Arena! 🚀
 
-*For best security: Rootless container + Podman + firewall + regular updates*
+*For best security: Rootless container + Podman + Nginx + firewall + regular updates*
 
 </div>
