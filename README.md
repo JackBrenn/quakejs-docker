@@ -11,6 +11,8 @@
 ![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
+[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-awakenedpower%2Fquakejs--rootless-blue?style=for-the-badge&logo=docker)](https://hub.docker.com/r/awakenedpower/quakejs-rootless)
+
 A fully self-contained, Dockerized QuakeJS server running on Debian 13 and Node.js 22.x LTS
 
 **🔒 This container runs as a non-root user for enhanced security**
@@ -102,7 +104,7 @@ cd quakejs-rootless
 
 2. **Build the image:**
 ```bash
-podman build -t docker.io/awakenedpower/quakejs-rootless:latest .
+podman build -t quakejs-rootless:latest .
 ```
 
 3. **Run the container:**
@@ -112,7 +114,7 @@ podman run -d \
   -e HTTP_PORT=8080 \
   -p 8080:8080 \
   -p 27960:27960 \
-  localhost/quakejs-rootless:latest
+  quakejs-rootless:latest
 ```
 
 ### Building with Docker
@@ -124,7 +126,17 @@ cd quakejs-rootless
 ```
 2. **Build the image:**
 ```bash
-docker build -t awakenedpower/quakejs-rootless:latest .
+docker build -t quakejs-rootless:latest .
+```
+
+3. **Run the container:**
+```bash
+docker run -d \
+  --name quakejs \
+  -e HTTP_PORT=8080 \
+  -p 8080:8080 \
+  -p 27960:27960 \
+  quakejs-rootless:latest
 ```
 
 ## ⚙️ Configuration
@@ -135,7 +147,7 @@ docker build -t awakenedpower/quakejs-rootless:latest .
 
 ### Server Configuration
 
-The server configuration can be customized by modifying `server.cfg`. Refer to the [Quake 3 World Server Guide](https://www.quake3world.com/q3guide/servers.html) for detailed configuration options.
+The server configuration can be customized by modifying `server.cfg`.
 
 ### Ports
 
@@ -187,6 +199,8 @@ These updates provide:
 - Enhanced security through non-root container execution
 
 ## 🙏 Credits & Acknowledgments
+
+This project is built on the shoulders of giants:
 
 - **[@treyyoder](https://github.com/treyyoder)** - Original [quakejs-docker](https://github.com/treyyoder/quakejs-docker) implementation that made fully local QuakeJS servers possible
 - **[@begleysm](https://github.com/begleysm)** - [QuakeJS fork](https://github.com/begleysm/quakejs) with local server capabilities
