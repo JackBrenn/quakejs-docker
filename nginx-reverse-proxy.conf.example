@@ -1,0 +1,54 @@
+## QuakeJS configuration with WebSocket SSL support
+## Using the SWAG container as a reverse proxy
+## https://docs.linuxserver.io/general/swag/
+
+# HTTP interface on port 443
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name quake.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    location / {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app quakejs;
+        set $upstream_port 8080;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        # Add security headers
+        add_header Content-Security-Policy "upgrade-insecure-requests" always;
+    }
+}
+# WebSocket SSL server on port 27960
+
+server {
+    listen 27960 ssl;
+    listen [::]:27960 ssl;
+    server_name quake.enif.no;
+
+    ssl_certificate     /config/etc/letsencrypt/live/example.com/fullchain.pem;
+    ssl_certificate_key /config//etc/letsencrypt/live/example.com/privkey.pem;
+
+    location / {
+        proxy_pass http://quakejs:27960;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_connect_timeout 7d;
+        proxy_send_timeout 7d;
+        proxy_read_timeout 7d;
+        proxy_buffering off;
+    }
+}
