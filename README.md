@@ -42,6 +42,10 @@ This project provides a completely local QuakeJS server that runs entirely in Do
 
 For internet-facing deployments, use a VPN, reverse proxy with authentication, or limit access to trusted IP ranges.
 
+## 🎮 Live Demo
+
+**Try it now!** Experience QuakeJS in action at [oldschoolfrag.com](https://oldschoolfrag.com)
+
 ## 🚀 Quick Start
 
 ### Using Podman (Recommended)
