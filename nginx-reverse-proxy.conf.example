@@ -1,8 +1,22 @@
-## QuakeJS configuration with WebSocket SSL support
-## Using the SWAG container as a reverse proxy - In front of the quakejs-rootless container!
-## Must be run as a seperate container along side quakejs-rootless proxying requests
-## Internet > SWAG > quakejs-rootless
-## https://docs.linuxserver.io/general/swag/
+## QuakeJS Reverse Proxy Configuration for SWAG
+## 
+## Purpose: Provides SSL termination for QuakeJS HTTP interface and WebSocket game traffic
+## 
+## Prerequisites:
+## 1. SWAG container running with valid SSL certificates
+## 2. quakejs-rootless container on same Docker network as SWAG
+## 3. DNS configured for your domain pointing to your server
+##
+## Setup Instructions:
+## 1. Copy this file to: /config/nginx/site-confs/quakejs.conf (in SWAG container)
+## 2. Replace 'quake.*' with your subdomain (e.g., quake.yourdomain.com)
+## 3. Replace 'example.com' with your actual domain in the WebSocket section
+## 4. Update certificate paths if using custom locations
+## 5. Verify 'quakejs' matches your container name (or update to match)
+## 6. Restart SWAG container: docker restart swag
+##
+## Architecture: Internet → SWAG (443 + 27960) → quakejs-rootless (8080 + 27960)
+## Documentation: https://docs.linuxserver.io/general/swag/
 
 # HTTP interface on port 443
 server {
