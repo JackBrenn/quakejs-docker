@@ -2,7 +2,7 @@
 
 # QuakeJS Rootless Container
 
-### Play Quake III Arena in your browser with Docker
+### Play multiplayer Quake III Arena in your browser with Podman / Docker
 
 ![Podman](https://img.shields.io/badge/Podman-892CA0?style=for-the-badge&logo=podman&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
