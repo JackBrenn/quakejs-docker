@@ -32,7 +32,7 @@ server {
 server {
     listen 27960 ssl;
     listen [::]:27960 ssl;
-    server_name quake.enif.no;
+    server_name example.com;
 
     ssl_certificate     /config/etc/letsencrypt/live/example.com/fullchain.pem;
     ssl_certificate_key /config//etc/letsencrypt/live/example.com/privkey.pem;
