@@ -16,8 +16,8 @@ nginx -c /etc/nginx/nginx.conf
 # Give nginx time to start
 sleep 1
 
-# Verify nginx started
-if ! ps aux | grep -v grep | grep nginx > /dev/null; then
+# Verify nginx started by checking if it's listening on port 8080
+if ! nc -z localhost 8080 2>/dev/null && ! curl -s http://localhost:8080 >/dev/null 2>&1; then
     echo "ERROR: Web server failed to start!"
     exit 1
 fi
