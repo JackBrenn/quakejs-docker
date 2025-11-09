@@ -211,8 +211,8 @@ MIT
 
 ## 🎯 Contributing // Questions
 
-Contributions are welcome! Feel free to open issues or submit pull requests.
-If you have questions, just open a GitHub issue and maybe I can help!
+- Contributions are welcome! Feel free to open issues or submit pull requests.
+- If you have questions, just open a GitHub issue and maybe I can help!
 
 ---
 
