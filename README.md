@@ -31,12 +31,6 @@ This project provides a completely local QuakeJS server that runs entirely in Do
 - 🛡️ **Runs as non-root user (quakejs)** for enhanced container security
 - 📦 Fully self-contained with all game assets bundled, no external content servers required
 
-## ⚠️ Security Recommendation
-
-**Recommendation:** This container now runs as a non-root user with a production-ready Nginx web server, significantly improving security through reduced privileges, better container isolation, updated dependencies and proper web server hardening. However, due to Quake 3 Arena's old codebase **exposing this server directly to the internet is still not recommended without additional security measures**.
-
-For internet-facing deployments, use a VPN, reverse proxy with authentication, or limit access to trusted IP ranges.
-
 ## 🎮 Live Demo
 
 **Try it now!** Experience QuakeJS in action at [oldschoolfrag.com](https://oldschoolfrag.com)
