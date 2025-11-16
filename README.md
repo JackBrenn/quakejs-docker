@@ -2,11 +2,17 @@
 
 <div align="center">
 
-### ⚠️ BROKEN: Broken quakejs.com Dependency
+### ⚠️ BROKEN: quakejs.com Dependency
 
-This container has a precompiled dependency on **quakejs.com**, which is no longer available online. This causes the container to fail on startup with connection errors.
+This container has a precompiled dependency which is no longer available online. Although this dependency is not needed for core functionality, the hardcoded connection attempt causes the container to fail on startup.
 
-BIG SAD FACE
+**Why it's broken:** The application tries to connect to an offline service during initialization.
+
+**Why we can't fix it easily:** Recompiling the application is out of scope for this project.
+
+**Recommendation:** Keep an eye on alternative projects like **[q3js.com](https://q3js.com/)** for future updates.
+
+😞
 
 # QuakeJS Rootless Project
 
