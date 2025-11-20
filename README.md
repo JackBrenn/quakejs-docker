@@ -8,7 +8,7 @@
 
 ### About This Repository
 
-This is a container rebuild of [quakejs-docker](https://github.com/treyyoder/quakejs-docker), but that project depended on quakejs.com, which recently introduced breaking changes.
+This is a rootless container rebuild of [quakejs-docker](https://github.com/treyyoder/quakejs-docker), but that project depended on quakejs.com, which recently introduced breaking changes. So quakejs will no longer start.
 
 **This repository is no longer maintained.**
 
