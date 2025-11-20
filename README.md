@@ -33,10 +33,6 @@ This project provides a completely local QuakeJS server that runs entirely in Do
 - 🛡️ **Runs as non-root user (quakejs)** for enhanced container security
 - 📦 Fully self-contained with all game assets bundled, no external content servers required
 
-## 🎮 Live Demo
-
-**Experience QuakeJS** in action at [oldschoolfrag.com](https://oldschoolfrag.com)
-
 ## 🚀 Quick Start
 
 ### Using Podman (Recommended)
