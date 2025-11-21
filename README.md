@@ -2,7 +2,7 @@
 
 <div align="center">
   
-## ⚠️ alternative to this project ⚠️
+## ⚠️ Alternative to this project ⚠️
 
 **Use [lklacar/q3js](https://github.com/lklacar/q3js) instead** - it's a more modern and feature-rich implementation.
 
