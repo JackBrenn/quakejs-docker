@@ -2,13 +2,13 @@
 
 <div align="center">
   
-## 🚀 A Better Alternative Exists!
+## ⚠️ alternative to this project ⚠️
 
 **Use [lklacar/q3js](https://github.com/lklacar/q3js) instead** - it's a more modern and feature-rich implementation.
 
 ### About This Repository
 
-This is a rootless container rebuild of [quakejs-docker](https://github.com/treyyoder/quakejs-docker), but that project depended on quakejs.com, which recently introduced breaking changes. So quakejs will no longer start.
+This is a rootless container rebuild of [quakejs-docker](https://github.com/treyyoder/quakejs-docker), but that project depended on quakejs.com, which recently introduced breaking changes. So this container may not start!
 
 **This repository is no longer maintained.**
 
